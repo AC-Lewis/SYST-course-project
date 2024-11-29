@@ -12,43 +12,54 @@ import java.util.Collections;
  * A concrete class that represents any grouping of cards for a Game. HINT, you might want to subclass this more than
  * once. The group of cards has a maximum size attribute which is flexible for reuse.
  *
- * @author AC Lewis
+ * @author aclew
  */
-public class GroupOfCards {
+public class GroupOfCards 
+{
 
     //The group of cards, stored in an ArrayList
     private ArrayList<Card> cards;
-    private int size;//the size of the grouping
-
-    public GroupOfCards(int size) {
-        this.size = size;
+    
+    public void createDeck()
+    {
+        int count = 0;
+        cards = new ArrayList<>();
+        
+        for (Card.Suit s : Card.Suit.values())
+        {
+            for(Card.Value v: Card.Value.values())
+            {
+                cards.add(count, new Card(s,v));
+                count++;
+            }
+        }
     }
 
-    /**
-     * A method that will get the group of cards as an ArrayList
-     *
-     * @return the group of cards.
-     */
-    public ArrayList<Card> getCards() {
-        return cards;
-    }
 
-    public void shuffle() {
+    public void shuffle() 
+    {
         Collections.shuffle(cards);
+    }
+    
+    public Card topDeck()
+    {
+        Card card = cards.get(cards.size() - 1);
+        cards.remove(cards.size() - 1);
+        return card;
     }
 
     /**
      * @return the size of the group of cards
      */
-    public int getSize() {
-        return size;
+    public int getSize() 
+    {
+        return cards.size();
     }
 
-    /**
-     * @param size the max size for the group of cards
-     */
-    public void setSize(int size) {
-        this.size = size;
+    public Card getCard(int index)
+    {
+        return this.cards.get(index);
     }
+
 
 }//end class
