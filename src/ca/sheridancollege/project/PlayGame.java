@@ -17,6 +17,7 @@ public class PlayGame
     {
         ArrayList<Player> players = new ArrayList<>();
         Game g = new Game("WAR");
+        System.out.println("Welcome to "+ g.getName());
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter player 1 name: ");
         String name = sc.next();
