@@ -62,7 +62,7 @@ public class Player {
         playerStack.addCards(winStack);
         winStack.clear();
     }
-    
+    //gets the remaining cards
     public int getCardsLeft()
     {
        return playerStack.getSize() + winStack.getSize();

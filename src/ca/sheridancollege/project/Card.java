@@ -20,7 +20,8 @@ public class Card {
      */
     public enum Suit{HEARTS,SPADES,CLUBS,DIAMONDS};
     
-    public enum Value{
+    public enum Value
+    {
         TWO(2),
         THREE(3),
         FOUR(4),
@@ -51,14 +52,17 @@ public class Card {
             value=v;
         }
 
-    public Value getValue() {
+    public Value getValue() 
+    {
         return value;
     }
     
-    public void setValue(Value val) {
+    public void setValue(Value val) 
+    {
         this.value = val;
     }
-    public void setSuit(Suit suit) {
+    public void setSuit(Suit suit) 
+    {
         this.suit = suit;
     }
     

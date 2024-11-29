@@ -18,10 +18,12 @@ public class PlayGame
         ArrayList<Player> players = new ArrayList<>();
         Game g = new Game("WAR");
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your name: ");
+        System.out.println("Enter player 1 name: ");
         String name = sc.next();
         players.add(new Player(name));
-        players.add(new Player("CPU"));
+        System.out.println("Enter player 2 name: ");
+        String name1 = sc.next();
+        players.add(new Player(name1));
         g.setPlayers(players);
         g.play();
         

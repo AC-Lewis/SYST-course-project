@@ -24,7 +24,7 @@ public class GroupOfCards
     {
         int count = 0;
         cards = new ArrayList<>();
-        
+        //for each suit and value a card is created
         for (Card.Suit s : Card.Suit.values())
         {
             for(Card.Value v: Card.Value.values())
@@ -35,12 +35,12 @@ public class GroupOfCards
         }
     }
 
-
+    //randomize the cards
     public void shuffle() 
     {
         Collections.shuffle(cards);
     }
-    
+    //pulls a card from the top of the deck
     public Card topDeck()
     {
         Card card = cards.get(cards.size() - 1);
@@ -55,11 +55,11 @@ public class GroupOfCards
     {
         return cards.size();
     }
-
+    
     public Card getCard(int index)
     {
         return this.cards.get(index);
     }
 
 
-}//end class
+}

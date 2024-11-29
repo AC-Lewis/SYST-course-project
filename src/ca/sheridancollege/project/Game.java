@@ -51,12 +51,13 @@ public class Game
 
     public void play()
     {
+        //Creates the deck
         GroupOfCards deck = new GroupOfCards();
         deck.createDeck();
         deck.shuffle();
         deck.shuffle();
         
-        //players draw cards
+        //deals the cards to the players
         while(deck.getSize() >= 2) 
         {
             players.get(0).getCard(deck.topDeck());
@@ -65,33 +66,42 @@ public class Game
         players.get(0).useWinStack();
         players.get(1).useWinStack();
         
+        //creating the stack of cards for the War
         Stack warBattle = new Stack();
         
-        gameLoop : for(int i= 1; i<50;i++) 
+        //loop ends after 50 turns or one player has no cards
+        gameLoop : for(int i= 1; i<51;i++) 
         {
             if(!cardLimit(1)) break gameLoop;
-            
+            //Each player plays one card per turn
             Card c1 = players.get(0).playCard();
             Card c2 = players.get(1).playCard();
+            //prints the turn number
             System.out.println("\nTurn" + i + ": ");
-            System.out.println(players.get(0).getName() + ": " + c1 + " ");
-            System.out.println(players.get(1).getName() + ": " + c2 + " ");
+            System.out.println(players.get(0).getName() + " plays: " + c1 + " ");
+            System.out.println(players.get(1).getName() + " plays: " + c2 + " ");
             
+           /*
+            Ordinals here seemed easier to implement than the compare method. May change later
+            Used help from https://www.tutorialspoint.com/java/lang/enum_ordinal.htm
+            */ 
             if(c1.getValue().ordinal() > c2.getValue().ordinal()) 
             {
                 players.get(0).getCard(c1);
                 players.get(0).getCard(c2);
-                System.out.println(players.get(0).getName()+ " gets card(s) ");
+                System.out.println(players.get(0).getName()+ " wins the turn ");
             }
             else if (c1.getValue().ordinal() < c2.getValue().ordinal()) 
             {
                 players.get(1).getCard(c1);
                 players.get(1).getCard(c2);
-                System.out.println(players.get(0).getName()+ " gets card(s) ");
+                System.out.println(players.get(1).getName()+ " wins the turn ");
             }
-            else // WAR happening
+            //War conditions
+            else 
             {
-                warBattle.clear(); //clearing pile of war cards
+                //clears the current stack of cards
+                warBattle.clear();
                 warBattle.addCard(c1);
                 warBattle.addCard(c2);
                 boolean warOver = false;
@@ -100,9 +110,9 @@ public class Game
                     if (!cardLimit(2)){
                         break gameLoop;
                         }
-                    System.out.println("\nA War has started, each player puts down ");
-                    System.out.println(4 +" card(s)");
+                    System.out.println("\nA War has started, each player puts down 4 cards");
                     
+                    //players put down 4 cards and compare the last one
                     for (int j = 1; j < 4; j++) 
                     {
                         c1 = players.get(0).playCard();
@@ -115,22 +125,25 @@ public class Game
                     if(c1.getValue().ordinal() > c2.getValue().ordinal()) 
                     {
                         players.get(0).getCards(warBattle);
+                        System.out.println(players.get(0).getName()+ " has won the war and get 4 cards!");
                         warOver = true;
                     }
                     else if(c1.getValue().ordinal() < c2.getValue().ordinal()) 
                     {
                         players.get(1).getCards(warBattle);
+                        System.out.println(players.get(1).getName()+ " has won the war and gets 4 cards!");
                         warOver = true;
                     }
                     
-                } while (!warOver); // end of 50 turns 
-            }
-            System.out.println(players.get(0).getCardsLeft() + " to " + players.get(1).getCardsLeft());
+                } while (!warOver);  
+            }//prints the current amount of cards each player has
+            System.out.println("\n"+players.get(0).getName()+ " has " + players.get(0).getCardsLeft()+ " cards left \n" + players.get(1).getName()+ " has " 
+                    + players.get(1).getCardsLeft()+" cards left \n");
         }
     }
     
-    
-    public boolean cardLimit(int n) // check if player has N amount of cards
+    //checks if player has enough cards to continue
+    public boolean cardLimit(int n)
     {
     if (players.get(0).getCardsLeft()< n ) 
     {
@@ -145,8 +158,8 @@ public class Game
     return true;
     }
     
-    
-    public Player getWinner() // this method return the winner of the game
+    //Declares winner
+    public Player getWinner() 
     {
         if (players.get(0).getCardsLeft() > players.get(1).getCardsLeft()) 
         {
